@@ -14,9 +14,21 @@
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
   },
   "dependencies": {
+    "bootstrap": "^4.5.3",
     "gatsby": "^2.24.85",
+    "gatsby-plugin-react-helmet": "^3.3.14",
+    "gatsby-plugin-root-import": "^2.0.5",
+    "gatsby-plugin-sass": "^2.3.21",
+    "gatsby-plugin-sharp": "^2.6.43",
+    "gatsby-source-filesystem": "^2.3.37",
+    "gatsby-transformer-sharp": "^2.5.20",
+    "gsap": "^3.5.1",
+    "node-sass": "^4.14.1",
     "react": "^16.12.0",
-    "react-dom": "^16.12.0"
+    "react-dom": "^16.12.0",
+    "react-parallax-tilt": "^1.4.66",
+    "swiper": "^6.3.4",
+    "vanilla-tilt": "^1.7.0"
   },
   "devDependencies": {
     "prettier": "2.1.2"
