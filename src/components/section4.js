@@ -6,14 +6,16 @@ export default function () {
     <div className="section section4" id="section4">
       <div className="ubication container">
         <div className="row">
-          <div className="col-md-6">
-            <img src={AndesMap} alt="Andes" />
+          <div className="col-lg-6">
+            <div className="ubication-map">
+              <img src={AndesMap} alt="Andes" />
+            </div>
           </div>
-          <div className="col-md-6">
-            <h3 className="ubication-title">
+          <div className="col-lg-6">
+            <h3 className="ubication_gsap_1 ubication-title">
               ACÁ ENCONTRÁS LA CABINA QUE TE QUEDA MÁS CERCA.
             </h3>
-            <ul className="ubication-list">
+            <ul className="ubication_gsap_1 ubication-list">
               <li className="ubication-list-item">
                 <strong>DIRECCIÓN 1 </strong>
                 <span>HORARIOS</span>

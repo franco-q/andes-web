@@ -1,50 +1,6 @@
 @import "./fonts/stylesheet.css";
 @import "./fontello-438b2871/css/fontello.css";
-
-/*!
- * Bootstrap v4.5.3 (https://getbootstrap.com/)
- * Copyright 2011-2020 The Bootstrap Authors
- * Copyright 2011-2020 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
- */
-
-@import "bootstrap/scss/functions";
-@import "bootstrap/scss/variables";
-@import "bootstrap/scss/mixins";
-@import "bootstrap/scss/root";
-@import "bootstrap/scss/reboot";
-@import "bootstrap/scss/type";
-@import "bootstrap/scss/images";
-@import "bootstrap/scss/code";
-@import "bootstrap/scss/grid";
-@import "bootstrap/scss/tables";
-@import "bootstrap/scss/forms";
-@import "bootstrap/scss/buttons";
-@import "bootstrap/scss/transitions";
-@import "bootstrap/scss/dropdown";
-@import "bootstrap/scss/button-group";
-@import "bootstrap/scss/input-group";
-@import "bootstrap/scss/custom-forms";
-@import "bootstrap/scss/nav";
-@import "bootstrap/scss/navbar";
-@import "bootstrap/scss/card";
-@import "bootstrap/scss/breadcrumb";
-@import "bootstrap/scss/pagination";
-@import "bootstrap/scss/badge";
-@import "bootstrap/scss/jumbotron";
-@import "bootstrap/scss/alert";
-@import "bootstrap/scss/progress";
-@import "bootstrap/scss/media";
-@import "bootstrap/scss/list-group";
-@import "bootstrap/scss/close";
-@import "bootstrap/scss/toasts";
-@import "bootstrap/scss/modal";
-@import "bootstrap/scss/tooltip";
-@import "bootstrap/scss/popover";
-@import "bootstrap/scss/carousel";
-@import "bootstrap/scss/spinners";
-@import "bootstrap/scss/utilities";
-@import "bootstrap/scss/print";
+@import "./bootstrap.scss";
 
 body {
   font-family: "Gotham", Helvetica Neue, Helvetica, Arial, sans-serif;
@@ -58,6 +14,7 @@ svg {
 .section {
   width: 100%;
   min-height: 100vh;
+  overflow: hidden;
 }
 
 .section1 {
@@ -67,13 +24,16 @@ svg {
   background-image: url(../images/main_bg.png);
   display: flex;
   flex-direction: column;
+
+  justify-content: space-between;
+  overflow: hidden;
   .brand {
     display: block;
   }
   .menu {
     top: 100%;
     position: absolute;
-    right: 0;
+    right: 4px;
     text-align: right;
     &-toggle {
       margin-left: auto;
@@ -81,17 +41,37 @@ svg {
       background-color: rgba(0, 0, 0, 0);
     }
   }
+  .navbar {
+    margin-top: 16px;
+    margin-left: 16px;
+    margin-right: 16px;
+    display: flex;
+    position: relative;
+  }
   .nav {
+    &-item {
+      margin-bottom: 8px;
+    }
     &-link {
       color: #fff;
       font-weight: 500;
       font-style: normal;
     }
   }
+  .echoes {
+    max-width: 1580px;
+    max-height: 290px;
+    margin-left: auto;
+    margin-right: auto;
+    @include media-breakpoint-down(md) {
+      svg {
+        transform: scale(2);
+      }
+    }
+  }
   &-footer {
     display: flex;
     width: 100%;
-    margin-top: auto;
     margin-bottom: 44px * 0.7;
     justify-content: space-between;
     align-items: center;
@@ -111,23 +91,21 @@ svg {
       font-family: "Gotham Book";
     }
   }
+  @include media-breakpoint-up(md) {
+    &-footer {
+      margin-bottom: 44px;
+    }
+  }
 }
 
 .section2 {
+  background-image: url(../images/andes_red_bg.png);
   &-child_2,
   &-child_1 {
     height: 100vw;
   }
-  &-child_2 {
-    background-image: url(../images/andes_red_bg.png);
-  }
-  @include media-breakpoint-up(md) {
-    display: flex;
-    &-child_2,
-    &-child_1 {
-      width: 50%;
-      height: 100vh;
-    }
+  &-child_1 {
+    background-color: #fff;
   }
   .campaing {
     padding-left: 96px * 0.5;
@@ -155,12 +133,13 @@ svg {
   .tilt {
     position: relative;
     transform-style: preserve-3d;
+    background-color: #fff;
     &-wrap {
       overflow: hidden;
       max-height: 100%;
     }
   }
-  @include media-breakpoint-down(md) {
+  @include media-breakpoint-down(lg) {
     .tilt {
       height: 100vw;
       &_andesmountain {
@@ -189,32 +168,66 @@ svg {
       }
     }
   }
-  @include media-breakpoint-up(md) {
+  @include media-breakpoint-up(lg) {
+    display: flex;
+    &-child_2,
+    &-child_1 {
+      width: 50%;
+      height: 100vh;
+    }
     .tilt {
-      height: 100%;
+      &,
+      &-wrap {
+        height: 100%;
+      }
       &_andesmountain {
         position: absolute;
-        width: 200vw;
-        left: -50vw;
-        bottom: -20%;
-        transform: translateZ(-100px);
+        width: 100%;
+        left: 13%;
+        bottom: 4%;
+        transform: scale(1.7);
       }
       &_andesframe {
         position: absolute;
-        height: 560px * 0.5;
-        width: 670px * 0.5;
+        height: 560px;
+        width: 670px;
         transform: translateZ(0px);
-        left: calc(50vw - (640px * 0.25));
-        top: calc(50vw - (580px * 0.25));
+        left: calc(50% - (670px * 0.5));
+        top: calc(50% - (560px * 0.5));
       }
       &_andesbottle {
         position: absolute;
-        height: 620px * 0.5;
-        width: 170px * 0.5;
+        height: 620px;
+        width: 170px;
         bottom: 0;
         transform: translateZ(20px);
-        left: calc(50vw - (170px * 0.25));
-        top: calc(50vw - (620px * 0.25));
+        left: calc(50% - (170px * 0.5));
+        top: calc(50% - (620px * 0.5));
+      }
+    }
+    .campaing {
+      padding-left: 96px;
+      display: flex;
+      align-items: center;
+      &-bird {
+        width: 146px;
+        height: 83px;
+        margin-bottom: 68px;
+      }
+      &-title {
+        max-width: 80%;
+        width: 520px;
+        height: 90px;
+        margin-bottom: 40px;
+      }
+      &-txt {
+        max-width: 80%;
+        font-family: "Gotham Book";
+        font-size: 38px;
+        line-height: 45.5px;
+        text-align: left;
+        color: #fff;
+        margin-bottom: 68px;
       }
     }
   }
@@ -254,6 +267,25 @@ svg {
         }
       }
     }
+
+    @include media-breakpoint-up(lg) {
+      &-title {
+        margin-bottom: 48px;
+      }
+      &-item {
+        margin-bottom: 48px;
+        &-figure {
+          width: 244px;
+          height: 244px;
+          margin-bottom: 50px;
+        }
+        &-txt {
+          font-size: 20px;
+          strong {
+          }
+        }
+      }
+    }
   }
 }
 
@@ -262,11 +294,10 @@ svg {
   flex-direction: column;
   justify-content: space-between;
   background-image: url(../images/andes_red_bg.png);
+  box-shadow: inset 0px 20vh 0px 0px #ffffff;
   .ubication {
     padding-top: 70px * 0.7;
     color: #fff;
-    -webkit-box-shadow: inset 0px 20vh 0px 0px #ffffff;
-    box-shadow: inset 0px 20vh 0px 0px #ffffff;
     &-title {
       font-family: "Gotham";
       font-weight: 900;
@@ -293,12 +324,46 @@ svg {
       font-size: 20px * 0.7;
       line-height: 28px * 0.7;
       letter-spacing: 2px;
+      margin-bottom: 16px;
       strong {
         font-family: "Gotham";
         font-weight: 900;
       }
       span {
         font-family: "Gotham Book";
+      }
+    }
+  }
+  @include media-breakpoint-up(lg) {
+    box-shadow: inset 33vw 0px 0px 0px #ffffff;
+    .ubication {
+      height: 100%;
+      padding-top: 0;
+      display: flex;
+      align-items: center;
+      flex-grow: 1 !important;
+      &-map {
+        z-index: 999;
+        position: relative;
+      }
+    }
+    &-title {
+      font-size: 38px;
+      line-height: 52px;
+      margin-bottom: 88px;
+      max-width: 400px;
+      &:after {
+        height: 2px;
+        width: 170px;
+        bottom: -40px;
+      }
+    }
+    &-list {
+      font-size: 20px;
+      line-height: 28px;
+      strong {
+      }
+      span {
       }
     }
   }
