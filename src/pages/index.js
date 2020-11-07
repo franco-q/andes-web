@@ -11,14 +11,13 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"
 
 gsap.registerPlugin(Draggable, ScrollToPlugin, ScrollTrigger)
 
-//pulse effet
-//https://codepen.io/iamaandy/pen/YWPzYN?editors=1010
 export default function Home() {
   var menuAnimation
 
   function clickFn() {
-      console.log(menuAnimation);
-    menuAnimation && menuAnimation.reversed() ? menuAnimation.play() : menuAnimation.reverse()
+    menuAnimation && menuAnimation.reversed()
+      ? menuAnimation.play()
+      : menuAnimation.reverse()
   }
 
   useEffect(() => {
