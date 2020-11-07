@@ -13,6 +13,9 @@ export default function () {
     <div className="section section2" id="section2">
       <div className="section2-child section2-child_1">
         <div className="tilt-wrap">
+            <div className="tilt_andesmountain">
+              <img src={AndesMountainSVG} alt="ANDES" />
+            </div>
           <Tilt
             className="tilt"
             perspective={500}
@@ -25,9 +28,6 @@ export default function () {
             </div>
             <div className="tilt_andesbottle">
               <img src={AndesBottlePNG} alt="ANDES" />
-            </div>
-            <div className="tilt_andesmountain">
-              <img src={AndesMountainSVG} alt="ANDES" />
             </div>
           </Tilt>
         </div>

@@ -13,51 +13,39 @@ gsap.registerPlugin(Draggable, ScrollToPlugin, ScrollTrigger)
 
 //pulse effet
 //https://codepen.io/iamaandy/pen/YWPzYN?editors=1010
-
 export default function Home() {
+  var menuAnimation
+
   function clickFn() {
-    var menuAnimation = gsap.fromTo(
+      console.log(menuAnimation);
+    menuAnimation && menuAnimation.reversed() ? menuAnimation.play() : menuAnimation.reverse()
+  }
+
+  useEffect(() => {
+    menuAnimation = gsap.fromTo(
       ".nav-item",
       { opacity: 0, x: document.body.offsetWidth },
       {
         opacity: 1,
-        duration: 0.7,
+        duration: 0.3,
+        reversed: true,
         stagger: 0.1,
         ease: "circ",
         x: 0,
       }
     )
-    menuAnimation.reversed() ? menuAnimation.play() : menuAnimation.reverse()
-  }
-
-  useEffect(() => {
     gsap.fromTo(
-      ".mechanics-item-figure svg circle",
-      1,
+      ".mechanics-item-figure svg #pulse",
+      1.7,
       { transformOrigin: "center center", autoAlpha: 1, scale: 1 },
       {
         repeat: -1,
         transformOrigin: "center center",
         autoAlpha: 0,
-        scale: 1.5,
-        ease: "power3.easeInOut",
+        scale: 1.3,
+        ease: "back.out(1.7)",
       }
     )
-
-    gsap.from(".campaing_gsap", {
-      scrollTrigger: {
-        trigger: ".section2 .campaing",
-        start: "-50% center",
-        end: "-10% 40%",
-        scrub: 1,
-      },
-      opacity: 0,
-      stagger: 0.1,
-      ease: "circ",
-      scale: 0.8,
-      y: 200,
-      duration: 1.2,
-    })
 
     gsap.from(".mechanics-item", {
       scrollTrigger: {
@@ -73,15 +61,16 @@ export default function Home() {
 
     gsap
       .timeline({
-        scrollTrigger: ".section4",
-        start: "-20% 80%",
-        end: "50% 50%",
+        scrollTrigger: {
+          trigger: ".section4",
+          start: "top center",
+          end: "top center",
+        },
       })
       .from(".footer", {
-        y: "-100vh",
         ease: "circ",
-        scale: 5,
-        duration: 0.7,
+        scale: 20,
+        duration: 0.3,
       })
       .from(".ubication", {
         x: "+=100vw",
@@ -103,15 +92,15 @@ export default function Home() {
         start: "-20% 80%",
         end: "50% 50%",
       },
-      x: "-100vw",
-      duration: 0.7,
+      opacity: 0,
+      duration: 0.5,
     })
 
     gsap.utils.toArray(".section").forEach((trigger, i) => {
       ScrollTrigger.create({
         trigger,
-        start: "10% 90%",
-        end: "90% 10%",
+        start: "5% 95%",
+        end: "95% 5%",
         onEnterBack: () => {
           gsap.to(window, {
             scrollTo: { y: trigger.offsetTop, autoKill: false },
