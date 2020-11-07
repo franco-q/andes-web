@@ -5,11 +5,9 @@ import Section3 from "../components/section3"
 import Section4 from "../components/section4"
 
 import { gsap } from "gsap"
-import { Draggable } from "gsap/Draggable"
-import { ScrollToPlugin } from "gsap/ScrollToPlugin"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 
-gsap.registerPlugin(Draggable, ScrollToPlugin, ScrollTrigger)
+gsap.registerPlugin(ScrollTrigger)
 
 export default function Home() {
   var menuAnimation
