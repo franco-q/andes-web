@@ -5,7 +5,7 @@ import AndesMechanics3 from "../images/mechanics_3.inline.svg"
 
 export default function () {
   return (
-    <div className="section section3" id="section3">
+    <div className="section section3" id="PARTICIPACION">
       <div className="mechanics">
         <div className="row">
           <div className="col-12">
@@ -30,7 +30,7 @@ export default function () {
               </figure>
               <h4 className="mechanics-item-txt">
                 <strong>GRITÁ</strong> <br />
-                AAAAAANNNDDDDEEEEEES!!!
+                ¡AAAAANNNDDDEEEEESSS!
               </h4>
             </div>
           </div>

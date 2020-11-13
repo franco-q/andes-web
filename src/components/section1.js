@@ -4,25 +4,31 @@ import AndesMenuSVG from "../images/menu.inline.svg"
 import AndesEchoesSVG from "../images/echoes.inline.svg"
 
 export default function (props) {
+
+    function onNavLink(e, id) {
+        e.preventDefault();
+        props.onScrollto(id)
+    }
+    
   return (
     <div className="section section1" id="section1">
       <nav className="navbar">
         <a href="/" className="brand">
           <AndesBrandSVG />
         </a>
-        <ul className="menu list-unstyled">
+        <ul className="menu list-unstyled"  ref={props.menuRef}>
           <li className="nav-item">
-            <a className="nav-link" href="/">
+            <a className="nav-link" href="/" onClick={e => onNavLink(e, 'PRINCIPAL')}>
               PRINCIPAL
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="/">
+            <a className="nav-link" href="/" onClick={e => onNavLink(e, 'PARTICIPACION')}>
               PARTICIPACIÓN
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="/">
+            <a className="nav-link" href="/" onClick={e => onNavLink(e, 'UBICACIONES')}>
               UBICACIONES
             </a>
           </li>
