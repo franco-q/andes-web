@@ -68,9 +68,9 @@ export default ({ onAccept }) => {
                     Ingresá tu fecha de nacimiento
 				</p>
 				<div className="disclamer-dpicker">
-					<Cleave className="" options={{ date: true, datePattern: ['d'] }} value={d} placeholder="DD" name="d" ref={$d} onChange={handleChange} />
-					<Cleave className="" options={{ date: true, datePattern: ['m'] }} value={m} placeholder="MM" name="m" ref={$m} onChange={handleChange} />
-					<Cleave className="" options={{ date: true, datePattern: ['Y'] }} value={y} placeholder="AAAA" name="Y" ref={$Y} onChange={handleChange} />
+					<Cleave className="disclamer-dpicker_cleave" options={{ date: true, datePattern: ['d'] }} value={d} placeholder="DD" name="d" ref={$d} onChange={handleChange} />
+					<Cleave className="disclamer-dpicker_cleave" options={{ date: true, datePattern: ['m'] }} value={m} placeholder="MM" name="m" ref={$m} onChange={handleChange} />
+					<Cleave className="disclamer-dpicker_cleave" options={{ date: true, datePattern: ['Y'] }} value={y} placeholder="AAAA" name="Y" ref={$Y} onChange={handleChange} />
                     <input type="date" className="disclamer-dpicker_mobile" onInput={handleDateChange}/>
 				</div>
 				<button className="disclamer-accept" onClick={() => submit()}>

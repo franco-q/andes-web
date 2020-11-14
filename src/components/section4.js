@@ -12,7 +12,9 @@ export default function () {
 						</div>
 					</div>
 					<div className="col-lg-6">
-						<h3 className="ubication_gsap_1 ubication-title">ENCONTRÁ LA CABINA <br/> MÁS CERCANA</h3>
+						<h3 className="ubication_gsap_1 ubication-title">
+							ENCONTRÁ LA CABINA <br /> MÁS CERCANA
+						</h3>
 						<ul className="ubication_gsap_1 ubication-list">
 							<li className="ubication-list-item">
 								<strong>DIRECCIÓN 1 </strong>
@@ -37,12 +39,12 @@ export default function () {
 			<footer className="footer">
 				<ul className="footer-links list-unstyled">
 					<li className="d-inline-block m-2">
-						<a href="/" className="footer-link">
+						<a href="https://www.facebook.com/andescerveza/" className="footer-link">
 							<i className="icon-facebook"></i>
 						</a>
 					</li>
 					<li className="d-inline-block m-2">
-						<a href="/" className="footer-link">
+						<a href="https://www.instagram.com/andescerveza/" className="footer-link">
 							<i className="icon-instagram"></i>
 						</a>
 					</li>

@@ -1,6 +1,4 @@
 import React from 'react'
-import Tilt from 'react-parallax-tilt'
-
 import AndesMountainSVG from '../images/andes_mountain.svg'
 import AndesFrameSVG from '../images/andes_frame.svg'
 import AndesBottlePNG from '../images/bottle.png'

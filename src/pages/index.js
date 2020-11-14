@@ -1,3 +1,9 @@
+import '../styles/main.scss'
+import 'swiper/swiper.scss'
+import 'swiper/components/navigation/navigation.scss'
+import 'swiper/components/pagination/pagination.scss'
+import 'swiper/components/scrollbar/scrollbar.scss'
+
 import React, { useEffect, useState } from 'react'
 import Disclamer from '../components/Disclamer'
 import Pagination from '../components/Pagination'
