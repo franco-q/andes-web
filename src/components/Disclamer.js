@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Cleave from 'cleave.js/react'
 import AndesBrandSVG from '../images/brand.inline.svg'
+import { Link } from 'gatsby'
 
 export default ({ onAccept }) => {
 	let $el = React.useRef(null)
@@ -41,15 +42,15 @@ export default ({ onAccept }) => {
 				break
 		}
 	}
-    function handleDateChange(e){
-        var [year, month, day] = e.target.value.split('-')
-        setD(day)
-        setM(month)
-        setY(year)
-    }
+	function handleDateChange(e) {
+		var [year, month, day] = e.target.value.split('-')
+		setD(day)
+		setM(month)
+		setY(year)
+	}
 	function submit() {
-        let bornDate = new Date([y, m, d].join('/'))
-        console.log(bornDate);
+		let bornDate = new Date([y, m, d].join('/'))
+		console.log(bornDate)
 		let age = _calculateAge(bornDate)
 
 		if (age > 18) {
@@ -64,14 +65,36 @@ export default ({ onAccept }) => {
 				<div className="disclamer-brand">
 					<AndesBrandSVG />
 				</div>
-				<p>
-                    Ingresá tu fecha de nacimiento
-				</p>
+				<p>Ingresá tu fecha de nacimiento</p>
 				<div className="disclamer-dpicker">
-					<Cleave className="disclamer-dpicker_cleave" options={{ date: true, datePattern: ['d'] }} value={d} placeholder="DD" name="d" ref={$d} onChange={handleChange} />
-					<Cleave className="disclamer-dpicker_cleave" options={{ date: true, datePattern: ['m'] }} value={m} placeholder="MM" name="m" ref={$m} onChange={handleChange} />
-					<Cleave className="disclamer-dpicker_cleave" options={{ date: true, datePattern: ['Y'] }} value={y} placeholder="AAAA" name="Y" ref={$Y} onChange={handleChange} />
-                    <input type="date" className="disclamer-dpicker_mobile" onInput={handleDateChange}/>
+					<Cleave
+						className="disclamer-dpicker_cleave"
+						options={{ date: true, datePattern: ['d'] }}
+						value={d}
+						placeholder="DD"
+						name="d"
+						ref={$d}
+						onChange={handleChange}
+					/>
+					<Cleave
+						className="disclamer-dpicker_cleave"
+						options={{ date: true, datePattern: ['m'] }}
+						value={m}
+						placeholder="MM"
+						name="m"
+						ref={$m}
+						onChange={handleChange}
+					/>
+					<Cleave
+						className="disclamer-dpicker_cleave"
+						options={{ date: true, datePattern: ['Y'] }}
+						value={y}
+						placeholder="AAAA"
+						name="Y"
+						ref={$Y}
+						onChange={handleChange}
+					/>
+					<input type="date" className="disclamer-dpicker_mobile" onInput={handleDateChange} />
 				</div>
 				<button className="disclamer-accept" onClick={() => submit()}>
 					ACEPTAR
@@ -86,13 +109,13 @@ export default ({ onAccept }) => {
 					</p>
 
 					<div className="disclamer-links">
-						<a href="/terminos-y-condiciones" className="disclamer-link">
+						<Link to="/legales#terminosycondiciones" target="_blank" className="disclamer-link" replace>
 							Términos de uso
-						</a>
+						</Link>
 						|
-						<a href="/politicas-de-privacidad" className="disclamer-link">
+						<Link to="/legales#politicasdeprivacidad" target="_blank" className="disclamer-link" replace>
 							Políticas de privacidad
-						</a>
+						</Link>
 					</div>
 					<div className="disclamer-copyright">COPYRIGHT ©2020. CERVEZA ANDES. Todos los derechos reservados.</div>
 				</div>

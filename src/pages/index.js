@@ -19,6 +19,7 @@ import { CookiesProvider, useCookies } from 'react-cookie'
 
 gsap.registerPlugin(ScrollToPlugin, ScrollTrigger)
 var isScrolling = false
+var scrollAnim
 
 export default function Home() {
 	const [cookies, setCookie] = useCookies(['in_legal_age'])
@@ -49,7 +50,7 @@ export default function Home() {
 	function scrollMeTo(id) {
 		isScrolling = true
 		if (isScrolling) {
-			gsap.to(window, {
+			scrollAnim = gsap.to(window, {
 				scrollTo: { y: document.getElementById(id).offsetTop, autoKill: false },
 				duration: 0.7,
 				ease: 'power3.easeInOut',
@@ -118,9 +119,9 @@ export default function Home() {
 				opacity: 0,
 				duration: 0.2
 			})
-			.from('.ubication_gsap_1', {
-				scale: 0.5,
-				x: -500,
+			.from('.ubication_gsap_stagger', {
+				x: '-=110vw',
+				opacity: 0,
 				stagger: 0.1
 			})
 
@@ -161,6 +162,9 @@ export default function Home() {
 				}
 			})
 		})
+
+		return () => {
+		}
 	}, [])
 
 	return (
