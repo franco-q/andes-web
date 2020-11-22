@@ -12,7 +12,7 @@ export default ({ onAccept }) => {
 	let [m, setM] = useState(null)
 	let [y, setY] = useState(null)
 
-	function _calculateAge(birthday) {
+	function calculateAge(birthday) {
 		// birthday is a date
 		var ageDifMs = Date.now() - birthday.getTime()
 		var ageDate = new Date(ageDifMs) // miliseconds from epoch
@@ -40,6 +40,8 @@ export default ({ onAccept }) => {
 					setY(val)
 				}
 				break
+			default:
+				break
 		}
 	}
 	function handleDateChange(e) {
@@ -51,7 +53,7 @@ export default ({ onAccept }) => {
 	function submit() {
 		let bornDate = new Date([y, m, d].join('/'))
 		console.log(bornDate)
-		let age = _calculateAge(bornDate)
+		let age = calculateAge(bornDate)
 
 		if (age > 18) {
 			onAccept($el.current, bornDate)

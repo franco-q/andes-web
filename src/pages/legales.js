@@ -1,6 +1,6 @@
 import '../styles/main.scss'
 
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import AndesBrandSVG from '../images/brand.inline.svg'
 
 export default function Home() {
@@ -12,7 +12,7 @@ export default function Home() {
 				</a>
 			</div>
 			<div className="container" id="terminosycondiciones">
-				<h3>Terminos y condiciones</h3>
+				<h3>TÉRMINOS Y CONDICIONES</h3>
 				<p>
 					Este sitio Web denominado (en adelante el "Sitio") es operado por Cervecería y Maltería Quilmes S.A.I.C.A. y G (en adelante
 					"Quilmes"). Al acceder o utilizar este Sitio, usted (en adelante el "Visitante" y conjuntamente con otros visitantes del Sitio,
@@ -20,7 +20,7 @@ export default function Home() {
 					y Condiciones de Uso y Política de Privacidad del Sitio, usted no puede utilizar este Sitio.
 				</p>
 				<p>
-					<strong>Prohibición de ingreso a menores</strong>
+					<strong>No compartir este contenido con menores</strong>
 				</p>
 				<p>
 					El sitio no está destinado a menores de 18 años sino a la promoción de los productos que Cervecería y Maltería Quilmes S.A.I.C. A.

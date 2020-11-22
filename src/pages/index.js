@@ -19,7 +19,7 @@ import { CookiesProvider, useCookies } from 'react-cookie'
 
 gsap.registerPlugin(ScrollToPlugin, ScrollTrigger)
 var isScrolling = false
-var scrollAnim
+var scrollAnim = []
 
 export default function Home() {
 	const [cookies, setCookie] = useCookies(['in_legal_age'])
@@ -136,36 +136,42 @@ export default function Home() {
 		})
 
 		gsap.utils.toArray('.section').forEach((trigger, i) => {
-			ScrollTrigger.create({
-				trigger,
-				start: '5% 95%',
-				end: '95% 5%',
-				onEnterBack: () => {
-					if (!isScrolling) {
-						setActiveSection(i + 1)
-						gsap.to(window, {
-							scrollTo: { y: trigger.offsetTop, autoKill: false },
-							duration: 0.7,
-							ease: 'power3.easeInOut'
-						})
+			scrollAnim.push(
+				ScrollTrigger.create({
+					trigger,
+					start: '5% 95%',
+					end: '95% 5%',
+					onEnterBack: () => {
+						if (!isScrolling) {
+							setActiveSection(i + 1)
+							gsap.to(window, {
+								scrollTo: { y: trigger.offsetTop, autoKill: false },
+								duration: 0.7,
+								ease: 'power3.easeInOut'
+							})
+						}
+					},
+					onEnter: () => {
+						if (!isScrolling) {
+							setActiveSection(i + 1)
+							gsap.to(window, {
+								scrollTo: { y: trigger.offsetTop, autoKill: false },
+								duration: 0.7,
+								ease: 'power3.easeInOut'
+							})
+						}
 					}
-				},
-				onEnter: () => {
-					if (!isScrolling) {
-						setActiveSection(i + 1)
-						gsap.to(window, {
-							scrollTo: { y: trigger.offsetTop, autoKill: false },
-							duration: 0.7,
-							ease: 'power3.easeInOut'
-						})
-					}
-				}
-			})
+				})
+			)
 		})
 
-		return () => {
+		return function () {
+			scrollAnim = scrollAnim.map(ST => {
+                ST.kill()
+            }).filter(Boolean)
+
 		}
-	}, [])
+	}, [cookies])
 
 	return (
 		<CookiesProvider>
