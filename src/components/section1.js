@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useRef, useEffect } from 'react'
 import AndesBrandSVG from '../images/brand.inline.svg'
 import AndesMenuSVG from '../images/menu.inline.svg'
 import AndesEchoesSVG from '../images/echoes.inline.svg'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 export default function (props) {
 	function onNavLink(e, id) {
@@ -9,8 +11,12 @@ export default function (props) {
 		props.onScrollto(id)
 	}
 
+	const $el = useRef()
+
+	useEffect(() => {
+	}, [])
 	return (
-		<div className="section section1" id="section1">
+		<div className="section section1" id="section1" ref={$el}>
 			<nav className="navbar">
 				<a href="/" className="brand">
 					<AndesBrandSVG />
@@ -22,7 +28,11 @@ export default function (props) {
 						</a>
 					</li>
 					<li className="nav-item">
-						<a className="nav-link" href="/" onClick={e => onNavLink(e, 'PARTICIPACION')}>
+						<a
+							className="nav-link"
+							href="/"
+							onClick={e => onNavLink(e, 'PARTICIPACION')}
+						>
 							PARTICIPACIÓN
 						</a>
 					</li>
@@ -41,10 +51,16 @@ export default function (props) {
 			</div>
 			<div className="section1-footer container-fluid">
 				<div className="section1-footer-links">
-					<a href="https://www.facebook.com/andescerveza/" className="section1-footer-link">
+					<a
+						href="https://www.facebook.com/andescerveza/"
+						className="section1-footer-link"
+					>
 						<i className="icon-facebook"></i>
 					</a>
-					<a href="https://www.instagram.com/andescerveza/" className="section1-footer-link">
+					<a
+						href="https://www.instagram.com/andescerveza/"
+						className="section1-footer-link"
+					>
 						<i className="icon-instagram"></i>
 					</a>
 				</div>

@@ -1,12 +1,24 @@
-import React from 'react'
+import React, { useRef, useEffect } from 'react'
 import { Link } from 'gatsby'
-//import AndesMap from '../images/map.png'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-export default function () {
+function chunkArray(arr, n) {
+	var chunkLength = Math.max(arr.length / n, 1)
+	var chunks = []
+	for (var i = 0; i < n; i++) {
+		if (chunkLength * (i + 1) <= arr.length) {
+			chunks.push(arr.slice(chunkLength * i, chunkLength * (i + 1)))
+		}
+	}
+	return chunks
+}
+
+export default function (props) {
 	const places = [
 		{
 			actions: [{ date: 'viernes 11/12', time: '16:00 a 19:00hs' }],
-			name: 'GO BAR VIAMONTE, CHACRAS DE CORIA',
+			name: 'GO BAR VIAMONTE. CHACRAS DE CORIA.',
 			address: 'Viamonte, M5505 Chacras de Coria, Mendoza',
 			contact: 'Santiago 2615337390',
 			iframe:
@@ -17,7 +29,7 @@ export default function () {
 				{ date: 'viernes 18/12', time: '16:00 a 19:00hs' },
 				{ date: 'sábado 12/12', time: '16:00 a 19:00hs' }
 			],
-			name: 'CENTRAL DE BEBIDAS',
+			name: 'CENTRAL DE BEBIDAS.',
 			address: 'Viamonte 5181, M5505 Chacras de Coria, Mendoza',
 			contact: 'Jose 2613906206',
 			iframe:
@@ -25,7 +37,7 @@ export default function () {
 		},
 		{
 			actions: [{ date: 'domingo 13/12', time: '11:00 a 14:00hs' }],
-			name: 'GO BAR MAYORISTA RODRIGUEZ',
+			name: 'GO BAR MAYORISTA RODRIGUEZ.',
 			address: 'Cnel Rodríguez 604, M5500 Mendoza',
 			contact: 'Santiago 2615337390',
 			iframe:
@@ -33,7 +45,7 @@ export default function () {
 		},
 		{
 			actions: [{ date: 'sábado 19/12', time: '16:00 a 19:00hs' }],
-			name: 'SUPERMERCADO ÁTOMO',
+			name: 'SUPERMERCADO ÁTOMO.',
 			address: 'Bolougne Sur Mer y regalado Olguin Las Heras',
 			contact: 'Carlos : 2617-161125',
 			iframe:
@@ -41,7 +53,7 @@ export default function () {
 		},
 		{
 			actions: [{ date: 'domingo 20/12', time: '11:00 a 14:00hs' }],
-			name: 'SUPERMERCADO ÁTOMO',
+			name: 'SUPERMERCADO ÁTOMO.',
 			address: 'San Martin 2430 Las Heras',
 			contact: 'Carlos : 2617-161125',
 			iframe:
@@ -76,37 +88,68 @@ export default function () {
 		},
 		{
 			actions: [{ date: 'jueves 17/12', time: '17:00 a 22:00hs' }],
-			name: 'PUNTA DEL LAGO. Pque Gral San Martín.',
-			address: ' Avenida del Trabajo, Parque General San Martín, Provincia de Mendoza, Del Trabajo, Mendoza',
+			name: 'PUNTA DEL LAGO.',
+			address:
+				' Avenida del Trabajo, Parque General San Martín, Provincia de Mendoza, Del Trabajo, Mendoza',
 			contact: 'damian: +549 2615 591644',
 			iframe:
 				'https://www.google.com/maps/place/Parque+General+San+Martin/@-32.8900194,-68.8692462,18.25z/data=!4m8!1m2!2m1!1sPUNTA+DEL+LAGO.+Parque+General+San+Mart%C3%ADn!3m4!1s0x95a326187519947f:0x6d81606321bb0289!8m2!3d-32.8898095!4d-68.8700868'
 		},
 		{
 			actions: [{ date: 'jueves 10/12', time: '17:00 a 22:00hs' }],
-			name: 'LA FUENTE DEL PARQUE. Pque Gral San Martín.',
+			name: 'LA FUENTE DEL PARQUE.',
 			address: 'Parque General San Martín. Fuente de los continentes',
 			contact: 'Berna: +549 2612 402758',
 			iframe:
 				'https://www.google.com/maps/place/Parque+%22Gral.+San+Mart%C3%ADn%22+-+Fuente+de+los+Continentes/@-32.8890722,-68.8688338,17z/data=!3m1!4b1!4m5!3m4!1s0x967e09ac5b8b01ed:0xf351beb7311512ff!8m2!3d-32.8890767!4d-68.8666451'
 		}
 	]
+	const $el = useRef()
 
 	const [src, setSrc] = React.useState(
-		'https://maps.google.com/maps?q=' + places[0].name + places[0].address + '(' + places[0].name + ')&t=&z=14&ie=UTF8&iwloc=B&output=embed'
+		'https://maps.google.com/maps?q=' +
+			places[0].name +
+			places[0].address +
+			'(' +
+			places[0].name +
+			')&t=&z=14&ie=UTF8&iwloc=B&output=embed'
 	)
 
-	function chunkArray(arr, n) {
-		var chunkLength = Math.max(arr.length / n, 1)
-		var chunks = []
-		for (var i = 0; i < n; i++) {
-			if (chunkLength * (i + 1) <= arr.length) chunks.push(arr.slice(chunkLength * i, chunkLength * (i + 1)))
-		}
-		return chunks
-	}
+	useEffect(() => {
+		gsap.from('.ubication_gsap_stagger', {
+			scrollTrigger: {
+				trigger: $el.current,
+				start: '10% 90%',
+				end: '90% 10%'
+			},
+			opacity: 0,
+			stagger: 0.2,
+			y: 100,
+			delay: 0.3
+		})
+		gsap.from('.ubication-map', {
+			scrollTrigger: {
+				trigger: $el.current,
+				start: '10% 90%',
+				end: '90% 10%'
+			},
+			opacity: 0,
+			scale: 0.8,
+			delay: 0.1
+		})
+		gsap.from('.footer > *', {
+			scrollTrigger: {
+				trigger: $el.current,
+				start: '10% 90%',
+				end: '90% 10%'
+			},
+			opacity: 0,
+			delay: 0.5
+		})
+	}, [])
 
 	return (
-		<div className="section section4" id="UBICACIONES">
+		<div className="section section4" id="UBICACIONES" ref={$el}>
 			<div className="ubication container-fluid">
 				<div className="row w-100">
 					<div className="col-lg-6 col-12">
@@ -118,13 +161,13 @@ export default function () {
 					</div>
 					<div className="col-lg-6 col-12">
 						<h3 className="ubication_gsap_stagger ubication-title">
-							ENCONTRÁ LA CABINA <br /> MÁS CERCANA
+							ENCONTRÁ LA ESTACIÓN PARA <br /> GRITAR MÁS CERCANA
 						</h3>
 						<div className="ubication-list ubication_gsap_stagger row">
 							{chunkArray(places, 2).map((col, c) => (
 								<div className="col-lg-6 col-12" key={c}>
 									{col.map((place, i) => (
-										<div className="ubication-list-item " key={i}>
+										<div className="ubication-list-item" key={c + '_' + i}>
 											<a
 												href={place.iframe}
 												target="_blank"
@@ -142,8 +185,8 @@ export default function () {
 												}
 											>
 												<strong className="d-block">{place.name}</strong>
-												{place.actions.map(action => (
-													<div>
+												{place.actions.map((action, a) => (
+													<div key={a + '_' + c + '_' + i}>
 														<span>
 															{action.date} {action.time}
 														</span>
@@ -160,7 +203,8 @@ export default function () {
 							<small>Se canjea en todos los Átomos de Gran Mendoza</small>
 						</h3>
 						<p className="ubication_gsap_stagger">
-							· GO BAR VIAMONTE, CHACRAS DE CORIA <br />· GO BAR MAYORISTA RODRIGUEZ <br />· GO BAR CASA CENTRAL
+							· GO BAR VIAMONTE, CHACRAS DE CORIA <br />· GO BAR MAYORISTA RODRIGUEZ{' '}
+							<br />· GO BAR CASA CENTRAL
 						</p>
 					</div>
 				</div>
@@ -184,11 +228,30 @@ export default function () {
 					NO COMPARTIR ESTE CONTENIDO CON MENORES
 				</p>
 				<div className="footer-disclamer-links">
-					<Link to="/legales#terminosycondiciones" target="_blank" className="footer-disclamer-link" replace>
+					<Link
+						to="/legales#basesycondiciones"
+						target="_blank"
+						className="footer-disclamer-link"
+						replace
+					>
+						Bases y condiciones
+					</Link>
+					|
+					<Link
+						to="/legales#terminosycondiciones"
+						target="_blank"
+						className="footer-disclamer-link"
+						replace
+					>
 						Términos de uso
 					</Link>
 					|
-					<Link to="/legales#politicasdeprivacidad" target="_blank" className="footer-disclamer-link" replace>
+					<Link
+						to="/legales#politicasdeprivacidad"
+						target="_blank"
+						className="footer-disclamer-link"
+						replace
+					>
 						Políticas de privacidad
 					</Link>
 				</div>

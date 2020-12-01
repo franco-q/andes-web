@@ -19,13 +19,13 @@ import { CookiesProvider, useCookies } from 'react-cookie'
 
 gsap.registerPlugin(ScrollToPlugin, ScrollTrigger)
 var isScrolling = false
-var scrollAnim = []
 
 export default function Home() {
 	const [cookies, setCookie] = useCookies(['in_legal_age'])
 	var menuRef = React.useRef(null)
-	var [showDisclamer, setShowDisclamer] = useState(1)
-	var [activeSection, setActiveSection] = useState(1)
+	var [showDisclamer, setShowDisclamer] = useState(!cookies.in_legal_age)
+	var [activeSection, setActiveSection] = useState(null)
+	const [active, setActive] = useState('section1')
 
 	var menuAnimation
 
@@ -47,20 +47,6 @@ export default function Home() {
 		menuAnimation.reversed() ? menuAnimation.play() : menuAnimation.reverse()
 	}
 
-	function scrollMeTo(id) {
-		isScrolling = true
-		if (isScrolling) {
-			scrollAnim = gsap.to(window, {
-				scrollTo: { y: document.getElementById(id).offsetTop, autoKill: false },
-				duration: 0.7,
-				ease: 'power3.easeInOut',
-				onComplete: () => {
-					isScrolling = false
-				}
-			})
-		}
-	}
-
 	function AcceptDisclamer($el, bornDate) {
 		gsap.to($el, {
 			opacity: 0,
@@ -71,118 +57,79 @@ export default function Home() {
 		})
 	}
 
+	function scrollMeTo(id) {
+        setActiveSection(id)
+	}
+
 	useEffect(() => {
-		setShowDisclamer(!cookies.in_legal_age)
-
-		gsap.fromTo(
-			'.mechanics-item-figure svg #pulse',
-			1.7,
-			{ transformOrigin: 'center center', autoAlpha: 1, scale: 1 },
-			{
-				repeat: -1,
-				transformOrigin: 'center center',
-				autoAlpha: 0,
-				scale: 1.3,
-				ease: 'back.out(1.7)'
-			}
-		)
-
-		gsap.from('.mechanics-item', {
-			scrollTrigger: {
-				trigger: '.section3',
-				start: '10% center',
-				end: '20% center'
-			},
-			opacity: 0,
-			stagger: 0.1,
-			scale: 0.2,
-			duration: 1
-		})
-
-		gsap.timeline({
-			scrollTrigger: {
-				trigger: '.section4',
-				start: 'top center',
-				end: 'top center'
-			}
-		})
-			.from('.footer', {
-				ease: 'circ',
-				scale: 20,
-				duration: 0.3
-			})
-			.from('.ubication', {
-				x: '+=100vw',
-				duration: 0.3
-			})
-			.from('.footer > *', {
-				opacity: 0,
-				duration: 0.2
-			})
-			.from('.ubication_gsap_stagger', {
-				x: '-=110vw',
-				opacity: 0,
-				stagger: 0.1
-			})
-
-		gsap.from('.section2 > *', {
-			scrollTrigger: {
-				trigger: '.section2',
-				start: '-20% 80%',
-				end: '50% 50%'
-			},
-			opacity: 0,
-			duration: 0.5
-		})
-
-		gsap.utils.toArray('.section').forEach((trigger, i) => {
-			scrollAnim.push(
-				ScrollTrigger.create({
-					trigger,
-					start: '5% 95%',
-					end: '95% 5%',
-					onEnterBack: () => {
-						if (!isScrolling) {
-							setActiveSection(i + 1)
-							gsap.to(window, {
-								scrollTo: { y: trigger.offsetTop, autoKill: false },
-								duration: 0.7,
-								ease: 'power3.easeInOut'
-							})
-						}
-					},
-					onEnter: () => {
-						if (!isScrolling) {
-							setActiveSection(i + 1)
-							gsap.to(window, {
-								scrollTo: { y: trigger.offsetTop, autoKill: false },
-								duration: 0.7,
-								ease: 'power3.easeInOut'
-							})
-						}
+		isScrolling = !!activeSection
+		if (activeSection) {
+			setTimeout(() => {
+				gsap.to(window, {
+					scrollTo: {
+						y: document.getElementById(activeSection).offsetTop,
+						duration: 0.7,
+						ease: 'power3.easeInOut',
+						autoKill: false
+                    },
+                    onStart: () =>  setActive(activeSection),
+					onComplete: () => {
+						setActiveSection(null)
 					}
 				})
-			)
-		})
-
-		return function () {
-			scrollAnim = scrollAnim.map(ST => {
-                ST.kill()
-            }).filter(Boolean)
-
+			}, 50)
 		}
-	}, [cookies])
+	}, [activeSection])
+
+	useEffect(() => {
+		gsap.utils.toArray('.section').forEach((trigger, i) => {
+			ScrollTrigger.create({
+				trigger,
+				start: '10% 90%',
+				end: '90% 10%',
+				onEnterBack: () => {
+					if (!isScrolling) {
+						gsap.to(window, {
+							scrollTo: { y: trigger.offsetTop, autoKill: false },
+							duration: 0.7,
+                            ease: 'power3.easeInOut',
+                            onStart: () =>  setActive(trigger.id)
+						})
+					}
+				},
+				onEnter: () => {
+					if (!isScrolling) {
+						gsap.to(window, {
+							scrollTo: { y: trigger.offsetTop, autoKill: false },
+							duration: 0.7,
+                            ease: 'power3.easeInOut',
+                            onStart: () =>  setActive(trigger.id)
+						})
+					}
+				}
+			})
+		})
+		return function () {
+			ScrollTrigger.getAll().forEach(ST => {
+				ST.kill()
+			})
+		}
+	}, [])
 
 	return (
-		<CookiesProvider>
-			<div>
-				<Pagination active={activeSection} />
-				{showDisclamer && <Disclamer onAccept={AcceptDisclamer} />}
-				<Section1 menuRef={$el => (menuRef = $el)} toggleMenu={clickFn} onScrollto={scrollMeTo} btn />
-				<Section2 />
-				<Section3 />
-				<Section4 />
-			</div>
-		</CookiesProvider>
+		<div>
+			<Pagination active={active} />
+			{showDisclamer && <Disclamer onAccept={AcceptDisclamer} />}
+			<Section1
+				scrollingTo={activeSection}
+				menuRef={$el => (menuRef = $el)}
+				toggleMenu={clickFn}
+				onScrollto={scrollMeTo}
+				btn
+			/>
+			<Section2 scrollingTo={activeSection} />
+			<Section3 scrollingTo={activeSection} />
+			<Section4 scrollingTo={activeSection} />
+		</div>
 	)
 }

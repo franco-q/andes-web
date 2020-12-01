@@ -44,13 +44,15 @@ export default ({ onAccept }) => {
 				break
 		}
 	}
-	function handleDateChange(e) {
+    
+    function handleDateChange(e) {
 		var [year, month, day] = e.target.value.split('-')
 		setD(day)
 		setM(month)
 		setY(year)
 	}
-	function submit() {
+    
+    function submit() {
 		let bornDate = new Date([y, m, d].join('/'))
 		console.log(bornDate)
 		let age = calculateAge(bornDate)
@@ -96,7 +98,11 @@ export default ({ onAccept }) => {
 						ref={$Y}
 						onChange={handleChange}
 					/>
-					<input type="date" className="disclamer-dpicker_mobile" onInput={handleDateChange} />
+					<input
+						type="date"
+						className="disclamer-dpicker_mobile"
+						onInput={handleDateChange}
+					/>
 				</div>
 				<button className="disclamer-accept" onClick={() => submit()}>
 					ACEPTAR
@@ -107,19 +113,41 @@ export default ({ onAccept }) => {
 						No se quede conectado si comparte el dispositivo con menores. <br />
 						Usamos cookies para mejorar nuestros servicios.
 						<br />
-						Al continuar la navegación está aceptando los términos de uso, las políticas de privacidad y el uso de las cookies
+						Al continuar la navegación está aceptando los términos de uso, las políticas
+						de privacidad y el uso de las cookies
 					</p>
 
 					<div className="disclamer-links">
-						<Link to="/legales#terminosycondiciones" target="_blank" className="disclamer-link" replace>
+					<Link
+						to="/legales#basesycondiciones"
+						target="_blank"
+						className="disclamer-link"
+						replace
+					>
+						Bases y condiciones
+					</Link>
+					|
+						<Link
+							to="/legales#terminosycondiciones"
+							target="_blank"
+							className="disclamer-link"
+							replace
+						>
 							Términos de uso
 						</Link>
 						|
-						<Link to="/legales#politicasdeprivacidad" target="_blank" className="disclamer-link" replace>
+						<Link
+							to="/legales#politicasdeprivacidad"
+							target="_blank"
+							className="disclamer-link"
+							replace
+						>
 							Políticas de privacidad
 						</Link>
 					</div>
-					<div className="disclamer-copyright">COPYRIGHT ©2020. CERVEZA ANDES. Todos los derechos reservados.</div>
+					<div className="disclamer-copyright">
+						COPYRIGHT ©2020. CERVEZA ANDES. Todos los derechos reservados.
+					</div>
 				</div>
 			</div>
 		</div>

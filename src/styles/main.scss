@@ -161,7 +161,15 @@ svg {
 		height: 100vw;
 	}
 	&-child_1 {
-		background-color: #fff;
+        background-color: #fff;
+        .mountain_gsap{
+            background-image: url(../images/Landing_Andes_Lata.jpg);
+            background-position-y: bottom;
+            background-position-x: center;
+            background-repeat: no-repeat;
+            height: 100%;
+            width: 100%;
+        }
 	}
 	.campaing {
 		padding-left: 96px * 0.5;
@@ -343,6 +351,7 @@ svg {
 }
 
 .section4 {
+    overflow: hidden;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
