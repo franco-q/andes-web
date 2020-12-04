@@ -1,7 +1,6 @@
 import React, { useRef, useEffect } from 'react'
 import { Link } from 'gatsby'
 import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 function chunkArray(arr, n) {
 	var chunkLength = Math.max(arr.length / n, 1)

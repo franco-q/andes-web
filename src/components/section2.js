@@ -3,7 +3,6 @@ import AndesBirdSVG from '../images/bird.svg'
 import AndespediSVG from '../images/pedile_una_andes_a_los_andes.inline.svg'
 import AndesSquares from '../images/squares.inline.svg'
 import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 export default function (props) {
 	const $el = useRef()

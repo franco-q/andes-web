@@ -19,15 +19,39 @@ svg {
 }
 
 .section1 {
-	background-position: 95% 50%;
+	// background-position: 95% 50%;
 	background-repeat: no-repeat;
 	background-size: cover;
-	background-image: url(../images/main_bg.png);
+	background-image: url(../images/andes_header_back_v2.jpg);
+	background-color: #fff;
+
 	display: flex;
 	flex-direction: column;
 
 	justify-content: space-between;
 	overflow: hidden;
+	.videobg {
+		display: none;
+		overflow: hidden;
+		position: fixed;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		z-index: -9999;
+		video {
+			position: absolute;
+			top: 0;
+			left: 0;
+			bottom: 0;
+			right: 0;
+			height: 100%;
+			width: 100%;
+			z-index: -1;
+			object-fit: cover;
+			object-position: center;
+		}
+	}
 	.brand {
 		display: block;
 	}
@@ -92,15 +116,20 @@ svg {
 		}
 	}
 	.echoes {
-		max-width: 1580px;
-		max-height: 290px;
-		margin-left: auto;
-		margin-right: auto;
+		max-width: 100%;
+		height: 220px;
+		// margin-left: auto;
+		// margin-right: auto;
 		overflow: hidden;
-		@include media-breakpoint-down(md) {
-			svg {
-				transform: scale(2);
-			}
+		img {
+			object-fit: cover;
+			height: 100%;
+			width: 100%;
+			// 	width: 100vw;
+			// 	height: 100vh;
+			// 	position: absolute;
+			// 	top: 0;
+			// 	left: 0;
 		}
 	}
 
@@ -131,9 +160,12 @@ svg {
 		}
 	}
 	@include media-breakpoint-up(lg) {
-		background-position: center center;
+		background: none;
 		&-footer {
 			margin-bottom: 44px;
+		}
+		.videobg {
+			display: block;
 		}
 		.menu {
 			align-items: center;
@@ -149,7 +181,12 @@ svg {
 			&-item {
 				margin-right: 12px;
 				margin-bottom: 0;
+                opacity: 1 !important;
+                transform: none !important;
 			}
+		}
+		.echoes {
+			display: none;
 		}
 	}
 }
@@ -161,15 +198,16 @@ svg {
 		height: 100vw;
 	}
 	&-child_1 {
-        background-color: #fff;
-        .mountain_gsap{
-            background-image: url(../images/Landing_Andes_Lata.jpg);
-            background-position-y: bottom;
-            background-position-x: center;
+		background-color: #fff;
+		.mountain_gsap {
+			background-image: url(../images/Landing_Andes_Lata.jpg);
+			background-position-y: bottom;
+			background-position-x: center;
             background-repeat: no-repeat;
-            height: 100%;
-            width: 100%;
-        }
+            background-size: cover;
+			height: 100%;
+			width: 100%;
+		}
 	}
 	.campaing {
 		padding-left: 96px * 0.5;
@@ -351,7 +389,7 @@ svg {
 }
 
 .section4 {
-    overflow: hidden;
+	overflow: hidden;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
@@ -364,18 +402,18 @@ svg {
 		margin-right: auto;
 		&-subtitle {
 			font-family: 'Gotham';
-            font-weight: 900;
-            letter-spacing: 4px;
-            small {
-                letter-spacing: 0px;
-                display: block;
-                text-transform: uppercase;
-                font-family: 'Gotham';
-                font-weight: 800;
-                font-size: 12px;
-            }
+			font-weight: 900;
+			letter-spacing: 4px;
+			small {
+				letter-spacing: 0px;
+				display: block;
+				text-transform: uppercase;
+				font-family: 'Gotham';
+				font-weight: 800;
+				font-size: 12px;
+			}
 			+ p {
-                font-family: 'Gotham Book';
+				font-family: 'Gotham Book';
 			}
 		}
 		&-title {
@@ -506,17 +544,23 @@ svg {
 		}
 	}
 }
+.showDisclamer {
+	max-height: 100vh;
+	overflow: hidden;
+}
 
 .disclamer {
 	&-wrap {
-		position: fixed;
+        position: fixed;
+        top: 0;
+        left: 0;
 		width: 100%;
 		height: 100%;
 		background-color: rgba(0, 0, 0, 0.7);
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		z-index: 999;
+		z-index: 99999999;
 	}
 
 	&-brand {

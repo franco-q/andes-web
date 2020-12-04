@@ -54,8 +54,8 @@ export default ({ onAccept }) => {
     
     function submit() {
 		let bornDate = new Date([y, m, d].join('/'))
-		console.log(bornDate)
-		let age = calculateAge(bornDate)
+
+        let age = calculateAge(bornDate)
 
 		if (age > 18) {
 			onAccept($el.current, bornDate)

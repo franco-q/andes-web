@@ -15,37 +15,16 @@ import Section4 from '../components/section4'
 import { gsap } from 'gsap'
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { CookiesProvider, useCookies } from 'react-cookie'
+import { useCookies } from 'react-cookie'
 
 gsap.registerPlugin(ScrollToPlugin, ScrollTrigger)
 var isScrolling = false
 
 export default function Home() {
 	const [cookies, setCookie] = useCookies(['in_legal_age'])
-	var menuRef = React.useRef(null)
 	var [showDisclamer, setShowDisclamer] = useState(!cookies.in_legal_age)
 	var [activeSection, setActiveSection] = useState(null)
 	const [active, setActive] = useState('section1')
-
-	var menuAnimation
-
-	function clickFn() {
-		if (!menuAnimation) {
-			menuAnimation = gsap.fromTo(
-				menuRef,
-				{ opacity: 0, x: document.body.offsetWidth },
-				{
-					opacity: 1,
-					duration: 0.3,
-					reversed: true,
-					stagger: 0.5,
-					ease: 'circ',
-					x: 0
-				}
-			)
-		}
-		menuAnimation.reversed() ? menuAnimation.play() : menuAnimation.reverse()
-	}
 
 	function AcceptDisclamer($el, bornDate) {
 		gsap.to($el, {
@@ -58,54 +37,58 @@ export default function Home() {
 	}
 
 	function scrollMeTo(id) {
-        setActiveSection(id)
+		setActiveSection(id)
 	}
 
 	useEffect(() => {
 		isScrolling = !!activeSection
 		if (activeSection) {
+			goToSection(document.getElementById(activeSection), {
+				onComplete: () => {
+					setActiveSection(null)
+				}
+			})
+			/*
 			setTimeout(() => {
 				gsap.to(window, {
 					scrollTo: {
-						y: document.getElementById(activeSection).offsetTop,
-						duration: 0.7,
-						ease: 'power3.easeInOut',
+						y: document.getElementById(activeSection),
+						duration: 1,
 						autoKill: false
-                    },
-                    onStart: () =>  setActive(activeSection),
+					},
+					onStart: () => setActive(activeSection),
 					onComplete: () => {
 						setActiveSection(null)
 					}
 				})
-			}, 50)
+            }, 50)
+            */
 		}
 	}, [activeSection])
 
+	function goToSection(section, opts = {}) {
+		gsap.to(window, {
+			scrollTo: { y: section, autoKill: false },
+			duration: 0.8,
+			onStart: () => setActive(section.id),
+			...opts
+		})
+	}
+
 	useEffect(() => {
-		gsap.utils.toArray('.section').forEach((trigger, i) => {
+        gsap.utils.toArray('.section').forEach((trigger, i) => {
 			ScrollTrigger.create({
 				trigger,
-				start: '10% 90%',
-				end: '90% 10%',
-				onEnterBack: () => {
-					if (!isScrolling) {
-						gsap.to(window, {
-							scrollTo: { y: trigger.offsetTop, autoKill: false },
-							duration: 0.7,
-                            ease: 'power3.easeInOut',
-                            onStart: () =>  setActive(trigger.id)
-						})
-					}
-				},
 				onEnter: () => {
-					if (!isScrolling) {
-						gsap.to(window, {
-							scrollTo: { y: trigger.offsetTop, autoKill: false },
-							duration: 0.7,
-                            ease: 'power3.easeInOut',
-                            onStart: () =>  setActive(trigger.id)
-						})
-					}
+					!isScrolling && goToSection(trigger)
+				}
+			})
+
+			ScrollTrigger.create({
+				trigger,
+				start: 'bottom bottom',
+				onEnterBack: () => {
+					!isScrolling && goToSection(trigger)
 				}
 			})
 		})
@@ -119,17 +102,11 @@ export default function Home() {
 	return (
 		<div>
 			<Pagination active={active} />
-			{showDisclamer && <Disclamer onAccept={AcceptDisclamer} />}
-			<Section1
-				scrollingTo={activeSection}
-				menuRef={$el => (menuRef = $el)}
-				toggleMenu={clickFn}
-				onScrollto={scrollMeTo}
-				btn
-			/>
+			<Section1 scrollingTo={activeSection} onScrollto={scrollMeTo} btn />
 			<Section2 scrollingTo={activeSection} />
 			<Section3 scrollingTo={activeSection} />
 			<Section4 scrollingTo={activeSection} />
+			{showDisclamer && <Disclamer onAccept={AcceptDisclamer} />}
 		</div>
 	)
 }

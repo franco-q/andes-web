@@ -3,7 +3,6 @@ import AndesMechanics1 from '../images/mechanics_1.inline.svg'
 import AndesMechanics2 from '../images/mechanics_2.inline.svg'
 import AndesMechanics3 from '../images/mechanics_3.inline.svg'
 import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 export default function (props) {
 	const $el = useRef()
